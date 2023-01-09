@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Toast } from "vant";
+import { Message } from 'element-ui';
 
 const fetch = axios.create({
     baseURL: process.env.VUE_APP_BASE_API, // api的base_url
@@ -26,7 +26,6 @@ fetch.interceptors.request.use(
 // respone interceptor
 fetch.interceptors.response.use(
     async (res) => {
-        Toast.fail("errMsg");
         if (res.status === 200) {
             if (res.headers["new-authorization"]) {
                 localStorage.setItem("token", res.headers["new-authorization"]);
@@ -42,7 +41,7 @@ fetch.interceptors.response.use(
                 location.href = "/no_login.html";
             } else {
                 // 业务失败
-                Toast.fail("访问异常");
+                Message.error("访问异常");
                 return Promise.reject(data);
             }
         } else if (res.status === 204) {
@@ -50,7 +49,7 @@ fetch.interceptors.response.use(
         } else {
             let errMsg = "服务异常:" + res.status;
             console.error(errMsg);
-            Toast.fail(errMsg);
+            Message.error(errMsg);
             return Promise.reject({
                 code: res.status,
                 message: errMsg,
@@ -66,7 +65,7 @@ fetch.interceptors.response.use(
             errMsg = "网络繁忙请重试";
             code = 501;
         }
-        Toast.fail(errMsg);
+        Message.error(errMsg);
         return Promise.reject({
             code,
             message: errMsg,

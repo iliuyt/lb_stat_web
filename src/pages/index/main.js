@@ -1,7 +1,6 @@
 import Vue from "vue";
 import App from "./App.vue";
 import api from "@/api";
-import "vant/lib/index.css";
 
 Vue.use(api);
 
@@ -29,12 +28,14 @@ if (query.token && query.token_time) {
         localStorage.setItem("token", query.token);
         localStorage.setItem("token_time", query.token_time);
     }
-}
-let token = localStorage.getItem("token");
-if (!token) {
-    window.location.href = "/no_login.html";
+    location.replace(window.location.origin + window.location.pathname);
 } else {
-    new Vue({
-        render: (h) => h(App),
-    }).$mount("#app");
+    let token = localStorage.getItem("token");
+    if (!token) {
+        window.location.href = "/no_login.html";
+    } else {
+        new Vue({
+            render: (h) => h(App),
+        }).$mount("#app");
+    }
 }
