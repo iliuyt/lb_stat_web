@@ -72,21 +72,27 @@
         </div>
 
         <div class="btn_group">
-            <div class="btn" @click="openPage('/user_list')">
+            <div class="btn" @click="openUserPage()">
                 <div class="btn1 btn_icon"></div>
                 人员信息查询
             </div>
-            <div class="btn" @click="openPage('/user_list')">
+            <div class="btn" @click="openPage('/grid.html')">
                 <div class="btn2 btn_icon"></div>
                 六级网格查询
             </div>
         </div>
         <div class="btn_group">
-            <div class="btn" @click="openPage('/user_list')">
+            <div class="btn" @click="openPage('/vaccine.html')">
                 <div class="btn1 btn_icon"></div>
                 疫苗接种查询
             </div>
-            <div class="btn" @click="openPage('/user_list')">
+            <div class="btn" @click="openPage('/vaccine_stat.html')">
+                <div class="btn2 btn_icon"></div>
+                疫苗统计查询
+            </div>
+        </div>
+        <div class="btn_group">
+            <div class="btn" @click="openPage('/other.html')">
                 <div class="btn2 btn_icon"></div>
                 数据统计
             </div>
@@ -131,6 +137,11 @@ export default {
         },
         openPage(path) {
             location.href = path;
+        },
+        openUserPage() {
+            let token = localStorage.getItem("token");
+            let url = `/?token=${token}&token_time=` + Date.now() + "#/pages/stat/user_list";
+            location.href = url;
         },
     },
 };
