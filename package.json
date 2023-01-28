@@ -1,5 +1,5 @@
 {
-  "name": "lb_web",
+  "name": "lb_stat_web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
