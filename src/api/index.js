@@ -12,16 +12,19 @@ Object.entries(ApiConfig).forEach(([name, defination]) => {
         configurable: false,
         get: () => {
             return async function(args) {
-                let { method, path } = defination;
+                let { method, path, option } = defination;
                 // 设置默认值
                 method = method || "GET";
                 path = path.toLowerCase();
 
                 // 请求参数
-                let fetchData = {
-                    url: path,
-                    method
-                };
+                let fetchData = Object.assign(
+                    {
+                        url: path,
+                        method,
+                    },
+                    option
+                );
 
                 // 默认参数为对象
                 args = args || {};

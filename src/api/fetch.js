@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Message } from 'element-ui';
+import { Message } from "element-ui";
 
 const fetch = axios.create({
     baseURL: process.env.VUE_APP_BASE_API, // api的base_url
@@ -39,6 +39,11 @@ fetch.interceptors.response.use(
                 return Promise.resolve(data.data);
             } else if (data.code === 401) {
                 location.href = "/no_login.html";
+            } else if (res.headers["content-type"].includes("image")) {
+                return Promise.resolve(
+                    "data:image/png;base64," +
+                        btoa(new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ""))
+                );
             } else {
                 // 业务失败
                 Message.error("访问异常");

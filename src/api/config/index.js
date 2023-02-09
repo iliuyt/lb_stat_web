@@ -18,12 +18,13 @@ export const getVaccineCount = {
     path: "/stat/vaccine_count",
 };
 
-
 export const getVaccineList = {
     path: "/stat/vaccine_list",
 };
 
-
-
-
-
+export const getFile = {
+    path: "/grid/file",
+    option: {
+        responseType: "arraybuffer",
+    },
+};

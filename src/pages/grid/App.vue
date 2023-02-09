@@ -19,7 +19,7 @@
         </div>
 
         <div class="grid-map">
-            <img src="/img/map1.png" alt="" srcset="" />
+            <img id="gridImg" src="/img/map1.png" alt="" srcset="" />
         </div>
         <div class="title">不同人员数量</div>
         <el-table
@@ -80,6 +80,7 @@ export default {
                         return {
                             value: x.id,
                             label: x.name,
+                            img: x.img,
                         };
                     });
                 } catch (error) {
@@ -91,11 +92,33 @@ export default {
             }
         },
         async changeGrid() {
+            let grid = this.gridList.find((x) => x.value == this.currentGrid);
+            if (grid && grid.img) {
+                this.getFile(grid.img);
+            } else {
+                this.setDefaultImg();
+            }
+
             let data = await this.$api.getUserCountGrid({
                 id: this.currentGrid,
             });
             this.difUserTable = data.countList;
             this.gridUserTable = data.adminList.concat(data.bgList);
+        },
+        async getFile(key) {
+            try {
+                let data = await this.$api.getFile({
+                    key,
+                });
+                document.getElementById("gridImg").src = data;
+            } catch (error) {
+                this.setDefaultImg();
+            }
+        },
+        setDefaultImg() {
+            setTimeout(() => {
+                document.getElementById("gridImg").src = "/img/map1.png";
+            }, 1);
         },
     },
 };
