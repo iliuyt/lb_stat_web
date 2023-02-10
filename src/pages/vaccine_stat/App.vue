@@ -3,6 +3,7 @@
         <div class="title">疫苗接种统计</div>
         <el-table size="mini" :data="tableData" style="width: 100%">
             <el-table-column align="center" prop="name" label="地址" width="80px"> </el-table-column>
+            <el-table-column align="center" prop="sum" label="总人数" width="80px"> </el-table-column>
             <el-table-column align="center" label="第一针">
                 <el-table-column align="center" prop="v1" label="人数" width="70px"> </el-table-column>
                 <el-table-column align="center" prop="vp1" label="比率" width="70px"> </el-table-column>
