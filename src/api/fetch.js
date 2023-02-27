@@ -28,7 +28,7 @@ fetch.interceptors.response.use(
     async (res) => {
         if (res.status === 200) {
             if (res.headers["new-authorization"]) {
-                localStorage.setItem("token", res.headers["new-authorization"]);
+                localStorage.setItem("token", decodeURIComponent(res.headers["new-authorization"]));
                 localStorage.setItem("token_time", Date.now());
             }
             if (res.headers["x-trace-id"]) {

@@ -32,11 +32,11 @@ let query = queryURLParams();
 if (query.token && query.token_time) {
     let tokenTime = localStorage.getItem("token_time");
     if (!tokenTime) {
-        localStorage.setItem("token", query.token);
+        localStorage.setItem("token", decodeURIComponent(query.token));
         localStorage.setItem("token_time", query.token_time);
     }
     if (query.token_time - tokenTime > 0) {
-        localStorage.setItem("token", query.token);
+        localStorage.setItem("token", decodeURIComponent(query.token));
         localStorage.setItem("token_time", query.token_time);
     }
     location.replace(window.location.origin + window.location.pathname);
