@@ -8,7 +8,7 @@ const fetch = axios.create({
 fetch.interceptors.request.use(
     (config) => {
         let tid = localStorage.getItem("x_trace_id");
-        let token = localStorage.getItem("token");
+        let token = decodeURIComponent(localStorage.getItem("token"));
         if (token) {
             config.headers["authorization"] = token;
         }
